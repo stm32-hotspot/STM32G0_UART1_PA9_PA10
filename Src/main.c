@@ -21,8 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define PUTCHAR_PROTOTYPE size_t __write(int handle, const unsigned char * buffer, size_t size) 
-  __ATTRIBUTES PUTCHAR_PROTOTYPE;
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -96,9 +95,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    
+    #define BUFFER_SIZE 1
+    uint8_t buffer[BUFFER_SIZE] = {0x55};
     HAL_Delay(1000);
-    printf("\n\rUSART1 works on PA9\n\r");
+    HAL_UART_Transmit(&huart1, (uint8_t *)buffer, BUFFER_SIZE, 0xFFFF); 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -214,19 +214,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-/**
-  * @brief  Retargets the C library printf function to the USART.
-  * @param  None
-  * @retval None
-  */
-PUTCHAR_PROTOTYPE
-{
-  /* Place your implementation of __write here */
-  /* e.g. write the character buffer to the COM */  
-  HAL_UART_Transmit(&huart1, (uint8_t *)buffer, size, 0xFFFF); 
-
-  return size;
-}
 
 /* USER CODE END 4 */
 
